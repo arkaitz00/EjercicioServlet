@@ -24,4 +24,32 @@
       </plugin>
     </plugins>
   </build>
+  <dependencies>
+  	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>javax.servlet-api</artifactId>
+	    <version>3.1.0</version>
+	    <scope>provided</scope>
+	</dependency>
+    <dependency>
+	    <groupId>org.hibernate</groupId>
+	    <artifactId>hibernate-core</artifactId>
+	    <version>5.4.30.Final</version>
+    </dependency>
+    <dependency>
+	    <groupId>log4j</groupId>
+	    <artifactId>log4j</artifactId>
+	    <version>1.2.17</version>
+	</dependency>
+	<dependency>
+	    <groupId>log4j</groupId>
+	    <artifactId>apache-log4j-extras</artifactId>
+		<version>1.2.17</version>
+	</dependency>
+    <dependency>
+	    <groupId>mysql</groupId>
+	    <artifactId>mysql-connector-java</artifactId>
+	    <version>8.0.24</version>
+	</dependency>
+  </dependencies>
 </project>
