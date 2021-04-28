@@ -65,7 +65,7 @@ public class MostrarDatos extends HttpServlet {
 	}
 	
 	private static SessionFactory buildSessionFactory() {
-		String methodName = MostrarDepartamentos.class.getSimpleName() + ".buildSessionFactory()";
+		String methodName = MostrarDatos.class.getSimpleName() + ".buildSessionFactory()";
 
 		final StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
 

@@ -1,7 +1,7 @@
 package main.java.entities;
 
 // default package
-// Generated 27-abr-2021 19:23:38 by Hibernate Tools 5.2.12.Final
+// Generated 28-abr-2021 18:43:04 by Hibernate Tools 5.2.12.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

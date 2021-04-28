@@ -106,7 +106,7 @@ public class MostrarEmpleados extends HttpServlet {
 	}
 
 	private static SessionFactory buildSessionFactory() {
-		String methodName = MostrarDepartamentos.class.getSimpleName() + ".buildSessionFactory()";
+		String methodName = MostrarEmpleados.class.getSimpleName() + ".buildSessionFactory()";
 
 		final StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
 
