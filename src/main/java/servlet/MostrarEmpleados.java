@@ -3,6 +3,7 @@ package main.java.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,70 +19,81 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-import main.java.dao.DepartamentoDao;
+import main.java.dao.EmpleadoDao;
 import main.java.entities.Departamento;
-
-
-
+import main.java.entities.Empleado;
 
 /**
- * Servlet implementation class MostrarDepartamentos
+ * Servlet implementation class MostrarEmpleados
  */
-@WebServlet("/MostrarDepartamentos")
-public class MostrarDepartamentos extends HttpServlet {
+@WebServlet("/MostrarEmpleados")
+public class MostrarEmpleados extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	static SessionFactory sessionFactory;
-	Logger logger = LogManager.getLogger(MostrarDepartamentos.class);
-	List<Departamento> listaDepartamentos;
+	static Logger logger = LogManager.getLogger(MostrarDatos.class);
+	List<Empleado> listaEmpleados;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MostrarDepartamentos() {
+    public MostrarEmpleados() {
         super();
         // TODO Auto-generated constructor stub
     }
-
-	/**
+    
+    /**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		sessionFactory = buildSessionFactory();
 	}
-		
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter res = response.getWriter();
-		listaDepartamentos  = DepartamentoDao.listarDepartamentos(sessionFactory.openSession());
-		if(listaDepartamentos != null) {
-			logger.info("Lista departamentos tiene valores");
-			res.println("<html>");
-				res.println("<head>");
-					res.println("<title>Listado departamentos</title>");
-				res.println("</head>");
-				res.println("<body>");
-					res.println("<table border= \"2\">");
-						res.println("<tr>");
-							res.println("<th>Codigo Departamento</th>");
-							res.println("<th>Nombre</th>");
-							res.println("<th>Codigo Responsable</th>");
-						res.println("</tr>");
-						for(Departamento departamento: listaDepartamentos) {
-						res.println("<tr>");
-							res.println("<td>"+departamento.getCodigo()+"</td>");
-							res.println("<td>"+departamento.getNombre()+"</td>");
-							res.println("<td>"+departamento.getNombre()+"</td>");
-						res.println("</tr>");
-						}
-					res.print("</table>");
-				res.println("</body>");
-			res.println("</html>");
-			res.close();
+		PrintWriter pw = response.getWriter();
+		listaEmpleados = EmpleadoDao.listarDepartamentos(sessionFactory.openSession());
+		if(listaEmpleados != null) {
+			logger.info("Lista empleados tiene valores");
+			pw.println("<html>");
+				pw.println("<head>");
+					pw.println("<title>Listado departamentos</title>");
+				pw.println("</head>");
+				pw.println("<body>");
+					pw.println("<table border= \"2\">");
+						pw.println("<tr>");
+							pw.println("<th>Codigo Empleado</th>");
+							pw.println("<th>Nombre</th>");
+							pw.println("<th>Primer apellido</th>");
+							pw.println("<th>Segundo apellido</th>");
+							pw.println("<th>Lugar nacimiento</th>");
+							pw.println("<th>Fecha nacimiento</th>");
+							pw.println("<th>Direccion</th>");
+							pw.println("<th>Telefono</th>");
+							pw.println("<th>Puesto</th>");
+							pw.println("<th>Codigo Departamento</th>");
+						pw.println("</tr>");
+					for(Empleado empleado: listaEmpleados) {
+						pw.println("<tr>");
+							pw.println("<td>"+empleado.getCodigo()+"</td>");
+							pw.println("<td>"+empleado.getNombre()+"</td>");
+							pw.println("<td>"+empleado.getApellido1()+"</td>");
+							pw.println("<td>"+empleado.getApellido2()+"</td>");
+							pw.println("<td>"+empleado.getLugarNacimiento()+"</td>");
+							pw.println("<td>"+empleado.getFechaNacimiento()+"</td>");
+							pw.println("<td>"+empleado.getDireccion()+"</td>");
+							pw.println("<td>"+empleado.getTelefono()+"</td>");
+							pw.println("<td>"+empleado.getPuesto()+"</td>");
+							pw.println("<td>"+empleado.getCodDepartamento()+"</td>");
+						pw.println("</tr>");
+					}
+					pw.print("</table>");
+				pw.println("</body>");
+			pw.println("</html>");
+			pw.close();
 		}else {
-			logger.error("Lista de departamentos no tiene ningun valor");
+			logger.error("Lista de empleados no tiene ningun valor");
 		}
 	}
 
@@ -92,7 +104,7 @@ public class MostrarDepartamentos extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-	
+
 	private static SessionFactory buildSessionFactory() {
 		String methodName = MostrarDepartamentos.class.getSimpleName() + ".buildSessionFactory()";
 
@@ -106,5 +118,4 @@ public class MostrarDepartamentos extends HttpServlet {
 			throw new ExceptionInInitializerError(ex);
 		}
 	}
-
 }

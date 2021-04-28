@@ -1,8 +1,6 @@
 package main.java.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,26 +16,19 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-import main.java.dao.DepartamentoDao;
-import main.java.entities.Departamento;
-
-
-
-
 /**
- * Servlet implementation class MostrarDepartamentos
+ * Servlet implementation class MostrarDatos
  */
-@WebServlet("/MostrarDepartamentos")
-public class MostrarDepartamentos extends HttpServlet {
+@WebServlet("/MostrarDatos")
+public class MostrarDatos extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	static SessionFactory sessionFactory;
-	Logger logger = LogManager.getLogger(MostrarDepartamentos.class);
-	List<Departamento> listaDepartamentos;
+	static Logger logger = LogManager.getLogger(MostrarDatos.class);
+	SessionFactory sessionFactory;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MostrarDepartamentos() {
+    public MostrarDatos() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -48,40 +39,20 @@ public class MostrarDepartamentos extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		sessionFactory = buildSessionFactory();
 	}
-		
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter res = response.getWriter();
-		listaDepartamentos  = DepartamentoDao.listarDepartamentos(sessionFactory.openSession());
-		if(listaDepartamentos != null) {
-			logger.info("Lista departamentos tiene valores");
-			res.println("<html>");
-				res.println("<head>");
-					res.println("<title>Listado departamentos</title>");
-				res.println("</head>");
-				res.println("<body>");
-					res.println("<table border= \"2\">");
-						res.println("<tr>");
-							res.println("<th>Codigo Departamento</th>");
-							res.println("<th>Nombre</th>");
-							res.println("<th>Codigo Responsable</th>");
-						res.println("</tr>");
-						for(Departamento departamento: listaDepartamentos) {
-						res.println("<tr>");
-							res.println("<td>"+departamento.getCodigo()+"</td>");
-							res.println("<td>"+departamento.getNombre()+"</td>");
-							res.println("<td>"+departamento.getNombre()+"</td>");
-						res.println("</tr>");
-						}
-					res.print("</table>");
-				res.println("</body>");
-			res.println("</html>");
-			res.close();
-		}else {
-			logger.error("Lista de departamentos no tiene ningun valor");
+		String parametro=request.getParameter("table");
+		if (parametro!=null) {
+			if (parametro.equals("departamentos")) {
+				logger.info("Se ha seleccionado tabla de departamentos");
+				request.getRequestDispatcher("MostrarDepartamentos").forward(request, response);
+			}else if(parametro.equals("empleados")){
+				logger.info("Se ha seleccionado tabla de empleados");
+				request.getRequestDispatcher("MostrarEmpleados").forward(request, response);
+			}
 		}
 	}
 
@@ -106,5 +77,4 @@ public class MostrarDepartamentos extends HttpServlet {
 			throw new ExceptionInInitializerError(ex);
 		}
 	}
-
 }
