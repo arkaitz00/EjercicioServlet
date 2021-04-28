@@ -61,7 +61,7 @@ public class MostrarDepartamentos extends HttpServlet {
 				res.println("<title>Listado departamentos</title>");
 			res.println("</head>");
 			res.println("<body>");
-				res.println("<table style='border: 1px solid black;'>");
+				res.println("<table border= \"2\">");
 					res.println("<tr>");
 						res.println("<th>Codigo Departamento</th>");
 						res.println("<th>Nombre</th>");
@@ -69,9 +69,9 @@ public class MostrarDepartamentos extends HttpServlet {
 					res.println("</tr>");
 					for(Departamento departamento: listaDepartamentos) {
 					res.println("<tr>");
-						res.println("<td>"+departamento.getCodigo()+"<td>");
-						res.println("<td>"+departamento.getNombre()+"<td>");
-						res.println("<td>"+departamento.getNombre()+"<td>");
+						res.println("<td>"+departamento.getCodigo()+"</td>");
+						res.println("<td>"+departamento.getNombre()+"</td>");
+						res.println("<td>"+departamento.getNombre()+"</td>");
 					res.println("</tr>");
 					}
 				res.print("</table>");
